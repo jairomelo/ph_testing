@@ -186,7 +186,7 @@ With this method you can reduce `obo.py` lenght to ~60 lines instead of >100
 
 ** Suggestion **
 
-In this lesson you teach the old way to string format (with `%s`). Although this operator is still valid (it doesn't rise any error), since the release of Python3 is prefered the use of `.format()` function to do this task. This method is more flexible and powerful than the 'old way' (it works like template literals in JavaScript), besides is more readable and suitable for current programming in Python. 
+In this lesson you teach the old way to string format (with `%s`). Although this operator is still valid (it doesn't rise any error), since the release of Python3 is prefered to use `.format()` function to do this task. This method is more flexible and powerful than the 'old way' (it works like template literals in JavaScript), besides is more readable and suitable for current programming in Python. 
 
 This is the original code:
 
