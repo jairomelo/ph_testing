@@ -333,3 +333,34 @@ for s in sorteddict:
 obo.wrapStringInHTML("html-to-freq-3", url, outstring)
 
 ```
+
+Or it could be wrote more synthetically avoiding the wraper variable:
+
+```
+# Given name of calling program, a url and a string to wrap,
+# output string in html body with basic metadata
+# and open in Firefox tab.
+
+def wrapStringInHTML(program, url, body):
+    import datetime
+    from webbrowser import open_new_tab
+
+    now = datetime.datetime.today().strftime("%Y%m%d-%H%M%S")
+
+    filename = program + '.html'
+    f = open(filename,'w', encoding='utf-8')
+    f.write("""<html>
+    <head>
+    <title>{} output - {}</title>
+    </head>
+    <body><p>URL: <a href=\"{}\">{}</a></p><p>{}</p></body>
+    </html>""".format(program, now, url, url, body))
+    f.close()
+    try:
+        open_new_tab(filename)
+    except:
+        #Change the filepath variable below to match the location of your directory
+        filename = 'file:///Users/username/Desktop/programming-historian/' + filename
+        open_new_tab(filename)
+```
+
