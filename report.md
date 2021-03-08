@@ -273,7 +273,7 @@ f = open(filename,'w')
 
 Suggestion:
 
-To avoid write a script for Mac and other for Windows (and reach a cross-platform coding) just use the EAFP coding style in this way (I also modify the code to works with the .format() approach, and encode the file in utf-8):
+To avoid write a script for Mac and other for Windows (and reach a cross-platform coding) just use `os` method `getcwd()` to get the current directory (I also modify the code to works with the .format() approach, and encode the file in utf-8):
 
 ```
 # Given name of calling program, a url and a string to wrap,
@@ -281,6 +281,7 @@ To avoid write a script for Mac and other for Windows (and reach a cross-platfor
 # and open in Firefox tab.
 
 def wrapStringInHTML(program, url, body):
+    import os
     import datetime
     from webbrowser import open_new_tab
 
@@ -301,14 +302,9 @@ def wrapStringInHTML(program, url, body):
     f.write(wrapper)
     f.close()
     '''
-    EAFP style for cross-platform coding 
+    Using os.getcwd() to achieve crossplatform code.
     '''
-    try:
-        open_new_tab(filename)
-    except:
-        #Change the filepath variable below to match the location of your directory
-        filename = 'file:///Users/username/Desktop/programming-historian/' + filename
-        open_new_tab(filename)
+    open_new_tab(os.getcwd() + filename)
 ```
 
 Or it could be wrote more synthetic, avoiding the wraper variable:
@@ -333,12 +329,10 @@ def wrapStringInHTML(program, url, body):
     <body><p>URL: <a href=\"{}\">{}</a></p><p>{}</p></body>
     </html>""".format(program, now, url, url, body))
     f.close()
-    try:
-        open_new_tab(filename)
-    except:
-        #Change the filepath variable below to match the location of your directory
-        filename = 'file:///Users/username/Desktop/programming-historian/' + filename
-        open_new_tab(filename)
+    '''
+    Using os.getcwd() to achieve crossplatform code.
+    '''
+    open_new_tab(os.getcwd() + filename)
 ```
 
 
