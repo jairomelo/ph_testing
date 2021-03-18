@@ -497,16 +497,17 @@ Resolve this issue was a bit hard. There is a few points where the program will 
 from bokeh.tile_providers import CARTODBPOSITRON
 ```
 
+Now, it's necesary import the module `get_provider` from bokeh:
+
+`from bokeh.tile_providers import get_provider`
+
+
 Tiles need to be invoqued in this way:
 
 ```
 provider = get_provider('CARTODBPOSITRON')
 p.add_tile(provider)
 ```
-
-To invoque the tile is necesary import it in this way:
-
-`from bokeh.tile_providers import get_provider`
 
 pyproj library changes completely the way it transforms data. This function raise an error:
 
