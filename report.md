@@ -64,7 +64,7 @@ wordlist = text.split()
 print(wordlist[:10]) # read a small number of elements.
 ```
 
-The `decode()` function helps to avoid errors in non-english language pages.
+Function `decode()` helps to avoid errors in non-english language pages.
 
 It could be a useful advice to reserve computational resources at print long results. A good practice consist on print only the first results to reserve memory. [check McKinney's 'Python for Data Analysis' (2018), "Reading Text Files in Pieces", for a deep explanation of this.]
 
@@ -166,7 +166,7 @@ def stopwords():
     return stopwords
 ```
 
-The we can import it into obo and just declare the function in `removeStopwords()`:
+Then, we can import it into obo and just declare the function in `removeStopwords()`:
 
 ```
 from stopwords import stopwords
@@ -202,7 +202,7 @@ print(frame % 'pear')
 -> This fruit is a pear
 ```
 
-The approach changes with this new method. Now it could be represented in this way:
+With this new method, it could be represented in this way:
 
 ```
 fruit = 'banana'
@@ -225,7 +225,7 @@ print(frame2 % ('bananas', 'pears'))
 -> These are bananas, those are pears
 ```
 
-Can be change for this one line:
+Can be change for this single line:
 
 ```
 print('These are {}s and these are {}s'.format(fruit, fruit2))
@@ -307,7 +307,7 @@ def wrapStringInHTML(program, url, body):
     open_new_tab(os.getcwd() + filename)
 ```
 
-Or it could be wrote more synthetic, avoiding the wraper variable:
+Or it can be written more simply, avoiding using the wraper variable:
 
 ```
 # Given name of calling program, a url and a string to wrap,
@@ -336,7 +336,7 @@ def wrapStringInHTML(program, url, body):
 ```
 
 
-With this cross-platfom approach you need to change `html-to-freq-3.py` code for this:
+With this cross-platfom approach you'll need to change `html-to-freq-3.py` code for this:
 
 ```
 # html-to-freq-3.py
@@ -358,3 +358,245 @@ for s in sorteddict:
 obo.wrapStringInHTML("html-to-freq-3", url, outstring)
 
 ```
+
+# Output Keywords in Context in an HTML File with Python
+## Putting it All Together
+
+Just related with the abovementioned issue. This code will work just fine as it is. Users will not need to change it to choose their OS.
+
+```
+# html-to-kwic.py
+
+import obo
+
+# create dictionary of n-grams
+n = 7
+url = 'http://www.oldbaileyonline.org/browse.jsp?id=t17800628-33&div=t17800628-33'
+
+text = obo.webPageToText(url)
+fullwordlist = ('# ' * (n//2)).split()
+fullwordlist += obo.stripNonAlphaNum(text)
+fullwordlist += ('# ' * (n//2)).split()
+ngrams = obo.getNGrams(fullwordlist, n)
+worddict = obo.nGramsToKWICDict(ngrams)
+
+# output KWIC and wrap with html
+target = 'black'
+outstr = '<pre>'
+if target in worddict:
+    for k in worddict[target]:
+        outstr += obo.prettyPrintKWIC(k)
+        outstr += '<br />'
+else:
+    outstr += 'Keyword not found in source'
+
+outstr += '</pre>'
+obo.wrapStringInHTML('html-to-kwic', url, outstr)
+```
+
+# 16. Installing Python Modules with pip
+
+I think it could be helpful to add three aditional items:
+
+## Update Python Modules
+
+`pip` doesn't automatically update your modules. The way to do it is easy, just write the following instructions:
+
+```
+pip install --upgrade beautifulsoup4
+```
+
+A similar method could be used to upgrade `pip`
+
+```
+python -m pip install --upgrade pip
+```
+
+## Install specific package versions
+
+Sometimes you'll need a specific version to work with some applications. To install a specific package version you only need to declare it in this way:
+
+```
+# To install an specific version
+
+pip install pandas==1.1.5
+
+# To install an older or equal version
+
+pip install pandas<=1.2.0
+
+# To install a newer or equal version
+
+pip install pandas>=1.2.0
+
+# To install a package between a range of versions (you need to put versions between quotation marks)
+
+pip install "pandas>=1.2.0,<1.2.3"
+
+```
+
+## Batch installation of packages
+
+You can install multiple packages simultaneously in the same line:
+
+```
+pip install pandas==0.23.1 bokeh==0.13.0 pyproj==1.9.5.1
+```
+
+Also, if you want to share your code with other people, you can guarantee they'll have the right packages writing a 'requirements.txt' file. To do that, only need to write a text file with each package for line, like this:
+
+```
+pandas==0.23.1 
+bokeh==0.13.0 
+pyproj==1.9.5.1
+```
+
+To install all packages, only need to do is to run this instructions from your shell:
+
+```
+pip install -r requirements.txt
+```
+
+# 17. Visualizing Data with Bokeh and Pandas
+
+Package error:
+
+```
+WARNING: Discarding https://files.pythonhosted.org/packages/29/72/5c1888c4948a0c7b736d10e0f0f69966e7c0874a660222ed0a2c2c6daa9f/pyproj-1.9.5.1.tar.gz#sha256=53fa54c8fa8a1dfcd6af4bf09ce1aae5d4d949da63b90570ac5ec849efaf3ea8 (from https://pypi.org/simple/pyproj/). Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
+ERROR: Could not find a version that satisfies the requirement pyproj==1.9.5.1
+ERROR: No matching distribution found for pyproj==1.9.5.1
+```
+
+pyproj==1.9.5.1 is too outdated and raise a lot of errors. I recomend delete this section:
+
+> To get the exact versions used to write this tutorial (note: these may not be the most recent versions of each python package) you can pass the following version numbers to `pip`.
+```
+> pip install pandas==0.23.1 bokeh==0.13.0 pyproj==1.9.5.1
+```
+
+
+## Categorical Data and Bar Charts: Munitions Dropped by Country
+
+People that run this code with versions of `pandas`>1.0 will raise a "FutureWarning" after run this line:
+
+`grouped = df.groupby('COUNTRY_FLYING_MISSION')['TOTAL_TONS', 'TONS_HE', 'TONS_IC', 'TONS_FRAG'].sum()`
+
+To solve this flag, just need to use double brackets:
+
+```
+grouped = df.groupby('COUNTRY_FLYING_MISSION')[['TOTAL_TONS', 'TONS_HE', 'TONS_IC', 'TONS_FRAG']].sum()
+```
+
+It's necesary to replace all the coincidences through the lesson where `groupby()` function is used.
+
+## Spatial Data: Mapping Target Locations
+
+Resolve this issue was a bit hard. There is a few points where the program will raise errors.
+```
+#target_locations.py
+from bokeh.tile_providers import CARTODBPOSITRON
+```
+
+Tiles need to be invoqued in this way:
+
+```
+provider = get_provider('CARTODBPOSITRON')
+p.add_tile(provider)
+```
+
+To invoque the tile is necesary import it in this way:
+
+`from bokeh.tile_providers import get_provider`
+
+pyproj library changes completely the way it transforms data. This function raise an error:
+
+```
+from pyproj import Proj, transform
+
+#helper function to convert lat/long to easting/northing for mapping
+#this relies on functions from the pyproj library
+def LongLat_to_EN(long, lat):
+    try:
+      easting, northing = transform(
+        Proj(init='epsg:4326'), Proj(init='epsg:3857'), long, lat)
+      return easting, northing
+    except:
+      return None, None
+```
+
+It's necesary to chage it for this one:
+
+```
+from pyproj import Transformer
+
+# helper function to convert lat/long to easting/northing for mapping
+# this relies on functions from the pyproj library
+def LongLat_to_EN(long, lat):
+    try:
+      transformer = Transformer.from_crs('epsg:4326', 'epsg:3857')
+      easting, northing = transformer.transform(long, lat)
+      return easting, northing
+    except:
+      return None, None
+```
+
+Full code for this exercise will be like this:
+
+```
+# target_locations.py
+import pandas as pd
+from bokeh.plotting import figure, output_file, show
+from bokeh.models import ColumnDataSource, Range1d
+from bokeh.layouts import layout
+from bokeh.palettes import Spectral3
+from bokeh.tile_providers import get_provider
+from pyproj import Transformer
+output_file('mapping_targets.html')
+
+# helper function to convert lat/long to easting/northing for mapping
+# this relies on functions from the pyproj library
+
+
+def LongLat_to_EN(long, lat):
+    try:
+        transformer = Transformer.from_crs('epsg:4326', 'epsg:3857')
+        easting, northing = transformer.transform(long, lat)
+        return easting, northing
+    except:
+        return None, None
+
+
+df = pd.read_csv("thor_wwii.csv")
+
+
+df['E'], df['N'] = zip(
+    *df.apply(lambda x: LongLat_to_EN(x['TGT_LONGITUDE'], x['TGT_LATITUDE']), axis=1))
+
+
+grouped = df.groupby(['E', 'N'])[['TONS_IC', 'TONS_FRAG']].sum().reset_index()
+
+filter = grouped['TONS_FRAG'] != 0
+grouped = grouped[filter]
+
+source = ColumnDataSource(grouped)
+
+left = -2150000
+right = 18000000
+bottom = -5300000
+top = 11000000
+
+p = figure(x_range=Range1d(left, right), y_range=Range1d(bottom, top))
+
+provider = get_provider('CARTODBPOSITRON')
+p.add_tile(provider)
+
+p.circle(x='E', y='N', source=source, line_color='grey', fill_color='yellow')
+
+p.axis.visible = False
+
+show(p)
+
+```
+
+After those changes, lesson works just fine.
+
