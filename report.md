@@ -1,4 +1,4 @@
-# Lesson From HTML to List of Words (part 2)
+# 7. From HTML to List of Words (part 2)
 
 ```
 f = open('helloworld.txt','wb')
@@ -29,7 +29,7 @@ Tested on Windows and Linux. The console result doesn't show ASCII characters. Y
 ['324.', 'BENJAMIN', 'BOWSEY', '(a', 'blackmoor', ')', 'was', 'indicted', 'for', 'that', 'he', 'together', 'with', 'five', 'hundred', 'other', 'persons', 'and', 'more,', 'did,', 'unlawfully,', 'riotously,', 'and', 'tumultuously', 'assemble', 'on', 'the', '6th', 'of', 'June', 'to', 'the', 'disturbance', 'of', 'the', 'public', 'peace', 'and', 'did', 'begin', 'to', 'demolish', 'and', 'pull', 'down', 'the', 'dwelling', 'house', 'of', 'Richard', 'Akerman', ',', 'against', 'the', 'form', 'of', 'the', 'statute,', '&amp;c.', 'ROSE', 'JENNINGS', ',', 'Esq.', 'sworn.', 'Had', 'you', 'any', 'occasion', 'to', 'be', 'in', 'this', 'part', 'of', 'the', 'town,', 'on', 'the', '6th', 'of', 'June', 'in', 'the', 'evening?', '-', 'I', 'dined', 'with', 'my', 'brother', 'who', 'lives', 'opposite', 'Mr.', "Akerman\\'s", 'house.', 'They', 'attacked', 'Mr.', "Akerman\\'s", 'house', 'precisely', 'at', 'seven', "o\\'clock;", 'they', 'were', 'preceded', 'by', 'a', 'man', 'better', 'dressed', 'than', 'the', 'rest,', 'who', 'went', 'up', 'to']
 ```
 
-# Normalizing Textual Data with Python
+# 9. Normalizing Textual Data with Python
 
 ** Suggestion **
 
@@ -102,7 +102,7 @@ wordlist = obo.stripNonAlphaNum(text)
 print(wordlist[:10])
 ```
 
-# Counting Word Frequencies with Python
+# 10. Counting Word Frequencies with Python
 
 ** Suggestion **
 
@@ -180,7 +180,7 @@ def removeStopwords(wordlist, stopwords):
 
 With this method you can reduce `obo.py` lenght to ~60 lines instead of >100
 
-# Output Data as an HTML File with Python
+# 12. Output Data as an HTML File with Python
 
 ## Python string formatting
 
@@ -359,7 +359,7 @@ obo.wrapStringInHTML("html-to-freq-3", url, outstring)
 
 ```
 
-# Output Keywords in Context in an HTML File with Python
+# 14. Output Keywords in Context in an HTML File with Python
 ## Putting it All Together
 
 Just related with the abovementioned issue. This code will work just fine as it is. Users will not need to change it to choose their OS.
@@ -605,4 +605,5 @@ After those changes, lesson works just fine.
 
 ## Working in Jupyter notebooks
 
-On last versions of Jupyter, icon <i class="fas fa-step-forward"></i> was changed for <i class="fas fa-play"></i>
+On last versions of Jupyter, icon `<i class="fas fa-step-forward"></i>` was changed for `<i class="fas fa-play"></i>`
+
