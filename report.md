@@ -601,3 +601,8 @@ show(p)
 
 After those changes, lesson works just fine.
 
+# 20. Introduction to Jupyter Notebooks
+
+## Working in Jupyter notebooks
+
+On last versions of Jupyter, icon <i class="fas fa-step-forward"></i> was changed for <i class="fas fa-play"></i>

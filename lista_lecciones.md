@@ -15,4 +15,6 @@
 15. Downloading Multiple Records Using Query Strings
 16. Installing Python Modules with pip
 17. Visualizing Data with Bokeh and Pandas
-18. 
+18. Setting up an Integrated Development Environment for Python (Linux)
+19. Setting Up an Integrated Development Environment for Python (Mac)
+20. Introduction to Jupyter Notebooks
